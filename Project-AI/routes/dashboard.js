@@ -6,15 +6,20 @@ const { buildDashboard } = require("../models/recommendationEngine");
 
 const router = express.Router();
 
-router.get("/", requireAuth, (req, res) => {
+router.get("/", requireAuth, async (req, res) => {
   const user = db.prepare("SELECT * FROM users WHERE id = ?").get(req.user.id);
   if (!user) return res.status(404).json({ error: "User not found." });
 
-  const dashboard = buildDashboard(user);
-  res.json({
-    name: user.name,
-    ...dashboard,
-  });
+  try {
+    const dashboard = await buildDashboard(user);
+    res.json({
+      name: user.name,
+      ...dashboard,
+    });
+  } catch (err) {
+    console.error("Dashboard AI generation failed:", err);
+    res.status(500).json({ error: "Could not generate career recommendations right now." });
+  }
 });
 
 module.exports = router;
