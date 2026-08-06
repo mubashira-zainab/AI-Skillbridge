@@ -1,14 +1,14 @@
 // models/recommendationEngine.js
 //
 // AI-powered recommendation engine. Takes a user's subject/skills/interests
-// and asks Claude to generate career matches, skill gaps, a learning
+// and asks Grok (xAI) to generate career matches, skill gaps, a learning
 // roadmap, and job recommendations — works for ANY subject, not just a
 // fixed list.
 //
-// Requires ANTHROPIC_API_KEY to be set in the environment.
+// Requires XAI_API_KEY to be set in the environment.
 
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
-const MODEL = "claude-sonnet-5";
+const XAI_API_KEY = process.env.XAI_API_KEY;
+const MODEL = "grok-4-0709";
 
 const SYSTEM_PROMPT = `You are a career guidance assistant inside an app called AI SkillBridge.
 Given a user's subject/field, self-reported skills, and interests, you generate realistic
@@ -49,33 +49,34 @@ whatever it is (tech, business, healthcare, design, education, trades, etc). Bas
 on genuine overlap between what they have and what the role needs. Do not include any text
 outside the JSON object.`;
 
-async function callClaude(userPrompt) {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
+async function callGrok(userPrompt) {
+  const res = await fetch("https://api.x.ai/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": ANTHROPIC_API_KEY,
-      "anthropic-version": "2023-06-01",
+      "Authorization": `Bearer ${XAI_API_KEY}`,
     },
     body: JSON.stringify({
       model: MODEL,
       max_tokens: 1500,
-      system: SYSTEM_PROMPT,
-      messages: [{ role: "user", content: userPrompt }],
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: userPrompt },
+      ],
     }),
   });
 
   if (!res.ok) {
     const errText = await res.text();
-    throw new Error(`Claude API error (${res.status}): ${errText}`);
+    throw new Error(`Grok API error (${res.status}): ${errText}`);
   }
 
   const data = await res.json();
-  const textBlock = data.content.find((b) => b.type === "text");
-  if (!textBlock) throw new Error("No text content returned from Claude API.");
+  const text = data.choices?.[0]?.message?.content;
+  if (!text) throw new Error("No text content returned from Grok API.");
 
   // Defensive: strip accidental markdown fences if the model adds them
-  const cleaned = textBlock.text.replace(/^```json\s*|\s*```$/g, "").trim();
+  const cleaned = text.replace(/^```json\s*|\s*```$/g, "").trim();
   return JSON.parse(cleaned);
 }
 
@@ -84,9 +85,9 @@ async function callClaude(userPrompt) {
  * Returns everything the frontend dashboard needs in one shape.
  */
 async function buildDashboard(user) {
-  if (!ANTHROPIC_API_KEY) {
+  if (!XAI_API_KEY) {
     throw new Error(
-      "ANTHROPIC_API_KEY is not set. Add it in your hosting provider's environment variables."
+      "XAI_API_KEY is not set. Add it in your hosting provider's environment variables."
     );
   }
 
@@ -101,7 +102,7 @@ async function buildDashboard(user) {
 
 Generate the career guidance JSON for this user based on their subject/field above.`;
 
-  const result = await callClaude(userPrompt);
+  const result = await callGrok(userPrompt);
 
   return {
     careerMatch: result.careerMatch,
