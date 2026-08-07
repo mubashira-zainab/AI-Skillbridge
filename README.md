@@ -104,6 +104,6 @@ By default the frontend expects the backend at `http://localhost:5000/api` (see 
 
 ---
 
-## 📄 License
+##  License
 
 MIT
