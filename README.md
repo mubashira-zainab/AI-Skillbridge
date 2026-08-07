@@ -86,7 +86,7 @@ By default the frontend expects the backend at `http://localhost:5000/api` (see 
 
 ---
 
-## 🧪 Try It
+##  Try It
 
 1. Visit the [live site](https://quiet-scone-cc5bdc.netlify.app)
 2. Sign up with any subject and skillset (e.g. `Marketing`, `Nursing`, `HTML, CSS, Python`)
