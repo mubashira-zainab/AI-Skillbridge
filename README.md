@@ -1,26 +1,26 @@
-# 🎯 AI SkillBridge
+#  AI SkillBridge
 
 **An AI-powered career guidance platform.** Users sign up with their education, skills, and interests, and get a personalized career match, skill gap analysis, learning roadmap, and job recommendations — powered by AI, so it works for *any* field, not just tech.
 
 🔗 **[Live Website →](https://quiet-scone-cc5bdc.netlify.app)**
 🔗 **[Backend API →](https://ai-skillbridge.onrender.com/api/health)**
 
-> ⚠️ Hosted on free-tier infrastructure. The API may take ~50 seconds to wake up on the first request after inactivity.
+>  Hosted on free-tier infrastructure. The API may take ~50 seconds to wake up on the first request after inactivity.
 
 ---
 
-## ✨ Features
+##  Features
 
-- 🔐 **Secure authentication** — signup/login/logout with hashed passwords and JWT-based sessions
-- 🤖 **AI career matching** — enter any subject or skillset and get a real, generated top-career match with a percentage fit
-- 📊 **Skill gap analysis** — see exactly what you already have and what's missing for your target role
-- 🗺️ **Personalized learning roadmap** — an ordered path from your current skills to your goal
-- 💼 **Job recommendations** — realistic job matches based on your profile
-- ⚡ Works for **any subject** — tech, business, healthcare, design, education, and more
+-  **Secure authentication** — signup/login/logout with hashed passwords and JWT-based sessions
+-  **AI career matching** — enter any subject or skillset and get a real, generated top-career match with a percentage fit
+-  **Skill gap analysis** — see exactly what you already have and what's missing for your target role
+-  **Personalized learning roadmap** — an ordered path from your current skills to your goal
+-  **Job recommendations** — realistic job matches based on your profile
+-  Works for **any subject** — tech, business, healthcare, design, education, and more
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -33,7 +33,7 @@
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 Project-AI/
@@ -55,7 +55,7 @@ Project-AI/
 
 ---
 
-## 🚀 Local Setup
+##  Local Setup
 
 ### 1. Backend
 
@@ -94,7 +94,7 @@ By default the frontend expects the backend at `http://localhost:5000/api` (see 
 
 ---
 
-## 👥 Contributors
+##  Contributors
 
 - **Frontend design & development** — [@muqadaszainab77](https://github.com/muqadaszainab77)
   Designed and built the static frontend — all pages, layout, and styling.
